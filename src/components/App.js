@@ -17,6 +17,7 @@ class App extends Component {
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointment = this.addAppointment.bind(this);
+    this.testFetch = this.testFetch.bind(this);
   }
 toggleForm(){
   this.setState({
@@ -34,6 +35,7 @@ addAppointment(apt){
     lastIndex: this.state.lastIndex + 1
   });
 }
+
 deleteAppointment(apt){
   let tempApts = this.state.myAppointments;
   tempApts = without(tempApts, apt);
@@ -41,6 +43,7 @@ deleteAppointment(apt){
   this.setState({
   myAppointments : tempApts
 });
+this.testFetch();
 }
   // read data
   componentDidMount(){
@@ -57,6 +60,21 @@ deleteAppointment(apt){
       })
     });
   }
+
+  testFetch(){
+  fetch('http://129.3.20.26:1312/SMARTron/rest/answerkey',{
+    headers:{
+      'mode': 'no-cors'
+    }
+  })
+  .then(response => response.json())
+  .then(result => {
+    const keys = result.map(item => {
+      return item;
+    })
+  });
+}
+
   render() {
 
     return (
